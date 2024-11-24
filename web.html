@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploring Decision Trees</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1, h2, h3 { color: #4CAF50; }
+        img { max-width: 100%; height: auto; }
+        .code-block { background: #f4f4f4; padding: 10px; border-left: 5px solid #4CAF50; font-family: monospace; }
+        .note { font-style: italic; color: gray; }
+        .github-link { text-decoration: none; color: #ffffff; background-color: #4CAF50; padding: 10px 15px; border-radius: 5px; }
+        .github-link:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Exploring Decision Trees in Machine Learning</h1>
+            <p>Learn how decision trees work, their implementation using the Iris dataset, and their applications in real-world scenarios. This tutorial also delves into key parameters, visualization techniques, and practical applications.</p>
+        </header>
+
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Decision trees are one of the most intuitive and interpretable machine learning models, often serving as the foundation for advanced techniques like Random Forests and Gradient Boosting. By splitting data based on feature values, decision trees create a hierarchical structure where decisions are made at the "leaves."</p>
+            <p>These models are widely used in various domains, such as healthcare for diagnosing diseases, finance for fraud detection, and e-commerce for customer segmentation. Decision trees are especially useful when interpretability is a priority, as they provide a clear decision-making process.</p>
+            <img src="Screenshot 2024-11-24 154554.png" alt="Conceptual Decision Tree" title="Example of a Decision Tree">
+            <p class="note">Figure: A simple conceptual decision tree splitting data based on feature thresholds.</p>
+        </section>
+
+        <section id="dataset">
+            <h2>The Iris Dataset</h2>
+            <p>The Iris dataset, introduced by Ronald A. Fisher in 1936, has become a benchmark for evaluating classification algorithms. This dataset contains 150 samples of iris flowers, each belonging to one of three species: Setosa, Versicolour, and Virginica.</p>
+
+            <h3>Dataset Features</h3>
+            <ul>
+                <li><strong>Sepal Length (cm):</strong> The length of the outer part of the flower.</li>
+                <li><strong>Sepal Width (cm):</strong> The width of the outer part of the flower.</li>
+                <li><strong>Petal Length (cm):</strong> The length of the inner part of the flower.</li>
+                <li><strong>Petal Width (cm):</strong> The width of the inner part of the flower.</li>
+            </ul>
+
+            <p>The following table summarizes the structure of the dataset:</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr><th>Feature</th><th>Description</th><th>Example Value</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Sepal Length</td><td>Length of the sepal in cm</td><td>5.1</td></tr>
+                    <tr><td>Sepal Width</td><td>Width of the sepal in cm</td><td>3.5</td></tr>
+                    <tr><td>Petal Length</td><td>Length of the petal in cm</td><td>1.4</td></tr>
+                    <tr><td>Petal Width</td><td>Width of the petal in cm</td><td>0.2</td></tr>
+                </tbody>
+            </table>
+            <img src="Screenshot 2024-11-24 161814.png" alt="Iris Dataset Features" title="Feature Distributions in Iris Dataset">
+            <p class="note">Figure: Distribution of petal and sepal features in the Iris dataset.</p>
+        </section>
+
+        <section id="key-parameters">
+            <h2>Key Parameters of Decision Trees</h2>
+            <p>Decision trees are versatile models with several hyperparameters that can be tuned to optimize their performance. The most important parameters include:</p>
+            <ul>
+                <li><strong>Max Depth:</strong> Limits the depth of the tree to prevent overfitting. A deeper tree captures more details but risks memorizing the training data.</li>
+                <li><strong>Min Samples Split:</strong> The minimum number of samples required to split a node. Larger values create a simpler tree.</li>
+                <li><strong>Criterion:</strong> The metric used to evaluate splits. Common options are Gini Impurity and Entropy (Information Gain).</li>
+            </ul>
+            <p>Understanding and adjusting these parameters is crucial for building robust models.</p>
+        </section>
+
+        <section id="implementation">
+            <h2>Code Implementation</h2>
+            <p>The code below demonstrates how to train a Decision Tree Classifier using scikit-learn, visualize the tree structure, and evaluate its performance:</p>
+            <div class="code-block">
+<pre>
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+iris = load_iris()
+X, y = iris.data, iris.target
+clf = DecisionTreeClassifier(max_depth=3, random_state=42)
+clf.fit(X, y)
+plot_tree(clf, filled=True)
+</pre>
+            </div>
+            <p>The visualization below shows how the decision tree splits the Iris dataset based on feature thresholds:</p>
+            <img src="Screenshot 2024-11-24 160741.png" alt="Decision Tree Visualization" title="Visualization of Trained Decision Tree">
+        </section>
+
+        <section id="analysis">
+            <h2>Analysis and Results</h2>
+            <p>The decision tree classifier achieved high accuracy on the Iris dataset due to its simplicity and well-defined class separations. Key observations include:</p>
+            <h3>Confusion Matrix</h3>
+            <img src="Screenshot 2024-11-24 160234.png" alt="Confusion Matrix" title="Confusion Matrix for Decision Tree Predictions">
+            <p class="note">Figure: The confusion matrix shows perfect classification of Setosa and slight overlaps between Versicolour and Virginica.</p>
+
+            <h3>Feature Importance</h3>
+            <p>The model primarily uses <strong>Petal Length</strong> and <strong>Petal Width</strong> for splitting, as these features exhibit the greatest variance among the classes. This highlights the importance of selecting informative features.</p>
+        </section>
+
+        <section id="github">
+            <h2>GitHub Repository</h2>
+            <p>All the code and resources used in this tutorial, including the decision tree implementation, dataset processing, and visualizations, are available on GitHub. This repository ensures reproducibility and allows you to experiment further with the decision tree model.</p>
+            <p>You can access the repository by clicking the button below:</p>
+            <a href="https://github.com/MRashi1/Machine-Learning" target="_blank" class="github-link">View on GitHub</a>
+	    <p></p>
+        </section>
+
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>Decision trees are a powerful and interpretable machine learning tool, ideal for solving classification and regression tasks. Their intuitive nature makes them a favorite among beginners, while their flexibility ensures they remain useful in real-world applications. To achieve optimal results, regularization techniques like limiting tree depth and selecting appropriate features are essential.</p>
+            <p>Practitioners are encouraged to explore advanced tree-based methods like Random Forests and Gradient Boosting for tackling more complex datasets.</p>
+        </section>
+    </div>
+</body>
+</html>
